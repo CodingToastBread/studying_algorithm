@@ -44,13 +44,27 @@ public class _01_10_ClosestStringDistance {
         int minPos = 0;
         int maxPos = 0;
         int[] stringDistance = new int[input.length()];
-        System.out.println(maxPos = input.indexOf(criteria));
-        while ((maxPos = input.indexOf(criteria)) != -1) {
-            String substring = input.substring(minPos, minPos + maxPos);
-            
-            
+        while ((maxPos = input.indexOf(criteria, minPos + 1)) != -1) {
+            String substring = input.substring(minPos, maxPos);
+            for (int i = minPos; i <= maxPos; i++) {
+                if (minPos != 0) {
+                    stringDistance[i] = Math.min(Math.abs(i - minPos), Math.abs(i - maxPos));
+                } else {
+                    stringDistance[i] = Math.abs(i - maxPos);
+                }
+            }
+            minPos = maxPos;
         }
         
+        if (input.length() - 1 != maxPos && minPos != 0) {
+            String substring = input.substring(minPos + 1);
+            for (int i = minPos + 1; i <= input.length() - 1; i++) {
+                stringDistance[i] = Math.abs(i - minPos);
+            }
+        }
+        
+        // 남은 문자열 후속 조치
+        System.out.println(Arrays.toString(stringDistance));
     }
 
     public static void main(String[] args) {
@@ -58,7 +72,6 @@ public class _01_10_ClosestStringDistance {
         String input = sc.next();
         char criteria = sc.next().charAt(0) ;
         new _01_10_ClosestStringDistance().solution(input, criteria);
-        // System.out.println(answer);
     }
 
 }
