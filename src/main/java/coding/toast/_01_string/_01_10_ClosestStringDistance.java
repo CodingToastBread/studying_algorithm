@@ -64,7 +64,13 @@ public class _01_10_ClosestStringDistance {
         }
         
         // 남은 문자열 후속 조치
-        System.out.println(Arrays.toString(stringDistance));
+        // System.out.println(Arrays.toString(stringDistance));
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        for (int i : stringDistance) {
+            stringJoiner.add(String.valueOf(i));
+        }
+        
+        System.out.println(stringJoiner);
     }
 
     public static void main(String[] args) {
