@@ -1,6 +1,5 @@
 package coding.toast._01_string;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
@@ -26,20 +25,17 @@ import java.util.StringJoiner;
  * 예시 출력 1
  * 1 0 1 2 1 0 1 2 2 1 0
  * </pre>
+ * <pre>
+ * 예시 입력 1:
+ * fkdgkjdflkgjljslgjkfldjlkfdg f
+ *
+ * 예시 출력 1
+ * 0 1 2 3 3 2 1 0 1 2 3 4 5 6 5 4 3 2 1 0 1 2 3 2 1 0 1 2
+ * </pre>
  */
 public class _01_10_ClosestStringDistance {
 
-  /*  private void solution(String input, char criteria) {
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        
-        for (char c : input.toCharArray()) {
-            // System.out.printf("%d ", Math.abs(c - criteria));
-            stringJoiner.add(String.valueOf(Math.abs(c - criteria)));
-        }
-        System.out.println(stringJoiner);
-    }
-    */
-    
+
     private void solution(String input, char criteria) {
         int minPos = 0;
         int maxPos = 0;
@@ -73,11 +69,61 @@ public class _01_10_ClosestStringDistance {
         System.out.println(stringJoiner);
     }
 
+    // retry!
+    private int[] solution2(String input, char criteria) {
+        char[] charArray = input.toCharArray();
+        int[] answer = new int[input.length()];
+        String t = String.valueOf(criteria);
+
+        for (int i = 0; i < charArray.length; i++) {
+            // 같은 값이면 무시
+            if (charArray[i] == criteria) {
+                // answer[i] = 0;
+                continue;
+            }
+
+            // 같은 값이 아니면...
+            if (i == 0) { // 맨 앞자리 검사면...
+                String rightSide = input.substring(i + 1);
+                int rightIndex = rightSide.indexOf(criteria) + (i + 1); // i + 1 은 offset 같은 거다.;
+                int rightDistance = Math.abs(i - rightIndex);
+                answer[i] = rightDistance;
+            } else if (i == (charArray.length - 1)) { // 맨 마지막 문자열 검사면...
+                String leftSide = input.substring(0, i);
+                int leftIndex = leftSide.lastIndexOf(criteria);
+                leftIndex = leftIndex == -1 ? Integer.MAX_VALUE : leftIndex;
+                int leftDistance = Math.abs(i - leftIndex);
+                answer[i] = leftDistance;
+            } else { // 맨 앞/뒤가 아닌 중간 지점이면
+                String leftSide = input.substring(0, i);
+                String rightSide = input.substring(i + 1);
+
+                int leftIndex = leftSide.lastIndexOf(criteria);
+                leftIndex = leftIndex == -1 ? Integer.MAX_VALUE : leftIndex;
+                int rightIndex = rightSide.indexOf(criteria); // i + 1 은 offset 같은 거다.
+                rightIndex = (rightIndex == -1 ? Integer.MAX_VALUE : rightIndex + (i + 1));
+
+                int leftDistance = Math.abs(i - leftIndex);
+                int rightDistance = Math.abs(i - rightIndex);
+
+                answer[i] = Math.min(leftDistance, rightDistance);
+            }
+        }
+
+        return answer;
+
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.next();
         char criteria = sc.next().charAt(0) ;
-        new _01_10_ClosestStringDistance().solution(input, criteria);
+        int[] ints = new _01_10_ClosestStringDistance().solution2(input, criteria);
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        for (int anInt : ints) {
+            stringJoiner.add(String.valueOf(anInt));
+        }
+        System.out.println(stringJoiner);
     }
 
 }
