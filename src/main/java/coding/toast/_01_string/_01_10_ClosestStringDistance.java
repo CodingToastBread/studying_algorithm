@@ -134,7 +134,6 @@ public class _01_10_ClosestStringDistance {
         for (int i = charArray.length - 1; i >= 0; i--) {
             if (charArray[i] == criteria) {
                 p = 0;
-                answer[i] = p;
             } else {
                 int originalVal = answer[i];
                 answer[i] = Math.min(originalVal, ++p);
