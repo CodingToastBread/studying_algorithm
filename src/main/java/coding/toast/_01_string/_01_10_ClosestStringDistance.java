@@ -114,16 +114,45 @@ public class _01_10_ClosestStringDistance {
 
     }
 
+    // 선생님 힌트에 의한 풀이
+    private int[] hintSolution(String input, char criteria) {
+        char[] charArray = input.toCharArray();
+        int[] answer = new int[input.length()];
+        int p = 1000;
+
+        // 왼쪽에서 오른쪽으로...
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] == criteria) {
+                p = 0;
+                answer[i] = p;
+            } else {
+                answer[i] = ++p;
+            }
+        }
+
+        // 오른쪽에서 왼쪽으로...
+        for (int i = charArray.length - 1; i >= 0; i--) {
+            if (charArray[i] == criteria) {
+                p = 0;
+                answer[i] = p;
+            } else {
+                int originalVal = answer[i];
+                answer[i] = Math.min(originalVal, ++p);
+            }
+        }
+
+        return answer;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.next();
         char criteria = sc.next().charAt(0) ;
-        int[] ints = new _01_10_ClosestStringDistance().solution2(input, criteria);
-        StringJoiner stringJoiner = new StringJoiner(" ");
+        int[] ints = new _01_10_ClosestStringDistance().hintSolution(input, criteria);
         for (int anInt : ints) {
-            stringJoiner.add(String.valueOf(anInt));
+            System.out.print(anInt + " ");
         }
-        System.out.println(stringJoiner);
     }
-
+    // teachermode e  ==> 1 0 1 2 1 0 1 2 2 1 0
+    // fkdgkjdflkgjljslgjkfldjlkfdg f  ==> 0 1 2 3 3 2 1 0 1 2 3 4 5 6 5 4 3 2 1 0 1 2 3 2 1 0 1 2
 }
