@@ -62,6 +62,49 @@ public class _01_11_StringCompress {
         return sb.toString();
     }
 
+    private String hintSolution(String input) {
+        int length = input.length();
+        int cnt = 1;
+        String temp = new StringBuilder(input).append(Character.MIN_VALUE).toString();
+        StringBuilder answer = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            char currentChar = temp.charAt(i);
+            char nextChar = temp.charAt(i + 1);
+
+            if (currentChar == nextChar) {
+                cnt++;
+            } else {
+                answer.append(currentChar);
+                if (cnt != 1) {
+                    answer.append(cnt);
+                }
+                cnt = 1;
+            }
+        }
+        return answer.toString();
+    }
+
+    private String teacherSolution(String s) {
+        String answer = "";
+        s = s + " ";
+        int cnt = 1;
+
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(0) == s.charAt(i + 1)) {
+                cnt++;
+            } else {
+                answer += s.charAt(i);
+                if (cnt > 1) {
+                    answer += String.valueOf(cnt);
+                }
+                cnt = 1;
+            }
+        }
+
+        return "";
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
