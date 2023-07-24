@@ -3,7 +3,7 @@ package coding.toast._01_string;
 import java.util.Scanner;
 
 /**
- * <h1>11. 문자열 압축</h1>
+ * <h1>12. 암호</h1>
  *
  * <h2>설명</h2>
  *
