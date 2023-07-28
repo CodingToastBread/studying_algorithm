@@ -46,6 +46,16 @@ public class _02_02_VisibleStudent {
         return answer;
     }
 
+    private int teacherSolution(int n, int[] arr) {
+        int answer = 1;
+        int max = arr[0];
+        for (int i = 1; i < n; i++) {
+            answer++;
+            max = arr[i];
+        }
+        return answer;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int cnt = sc.nextInt();
